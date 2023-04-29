@@ -39,7 +39,7 @@ public interface Rule extends PropertySource {
      */
     // TODO 7.0.0 use PropertyDescriptor<Optional<String>>
     StringProperty VIOLATION_SUPPRESS_XPATH_DESCRIPTOR = new StringProperty("violationSuppressXPath",
-            "Suppress violations on nodes which match a given relative XPath expression.", null, Integer.MAX_VALUE - 2);
+            "Suppress violations on nodes which match a given relative XPath expression.", null, (int)(((float)Integer.MAX_VALUE) - 2));
 
     /**
      * Get the Language of this Rule.
