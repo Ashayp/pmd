@@ -107,7 +107,7 @@ public class RuleSet implements ChecksumAware {
             checksum = ((XPathRule) rule).getXPathExpression().hashCode();
         } else {
             // TODO : Is this good enough? all properties' values + rule name
-            checksum = rule.getPropertiesByPropertyDescriptor().values().hashCode() * 31 + rule.getName().hashCode();
+            checksum = (long) rule.getPropertiesByPropertyDescriptor().values().hashCode() * 31 + rule.getName().hashCode();
         }
 
         final RuleSetBuilder builder =
