@@ -537,6 +537,9 @@ public final class Chars implements CharSequence {
 
             @Override
             public Chars next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 final int curPos = pos;
                 if (nextCr == NOT_TRIED) {
                     nextCr = indexOf('\r', curPos);
