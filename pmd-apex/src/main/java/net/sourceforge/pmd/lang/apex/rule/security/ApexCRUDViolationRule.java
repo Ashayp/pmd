@@ -120,26 +120,28 @@ public class ApexCRUDViolationRule extends AbstractApexRule {
     private static final PropertyDescriptor<Integer> MERGE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR = authMethodTypeParamIndexProperty("merge");
 
     // Auth method config property correlation information
-    private static final Map<PropertyDescriptor<String>, PropertyDescriptor<Integer>> AUTH_METHOD_TO_TYPE_PARAM_INDEX_MAP = new HashMap<PropertyDescriptor<String>, PropertyDescriptor<Integer>>() {
-        {
-            put(CREATE_AUTH_METHOD_PATTERN_DESCRIPTOR, CREATE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
-            put(READ_AUTH_METHOD_PATTERN_DESCRIPTOR, READ_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
-            put(UPDATE_AUTH_METHOD_PATTERN_DESCRIPTOR, UPDATE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
-            put(DELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, DELETE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
-            put(UNDELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, UNDELETE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
-            put(MERGE_AUTH_METHOD_PATTERN_DESCRIPTOR, MERGE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
-        }
-    };
-    private static final Map<PropertyDescriptor<String>, String> AUTH_METHOD_TO_DML_OPERATION_MAP = new HashMap<PropertyDescriptor<String>, String>() {
-        {
-            put(CREATE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_CREATEABLE);
-            put(READ_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_ACCESSIBLE);
-            put(UPDATE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_UPDATEABLE);
-            put(DELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_DELETABLE);
-            put(UNDELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_UNDELETABLE);
-            put(MERGE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_MERGEABLE);
-        }
-    };
+    private static final Map<PropertyDescriptor<String>, PropertyDescriptor<Integer>> AUTH_METHOD_TO_TYPE_PARAM_INDEX_MAP;
+    private static final Map<PropertyDescriptor<String>, String> AUTH_METHOD_TO_DML_OPERATION_MAP;
+
+    static {
+        Map<PropertyDescriptor<String>, PropertyDescriptor<Integer>> authMethodToTypeParamIndexMap = new HashMap<>();
+        authMethodToTypeParamIndexMap.put(CREATE_AUTH_METHOD_PATTERN_DESCRIPTOR, CREATE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
+        authMethodToTypeParamIndexMap.put(READ_AUTH_METHOD_PATTERN_DESCRIPTOR, READ_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
+        authMethodToTypeParamIndexMap.put(UPDATE_AUTH_METHOD_PATTERN_DESCRIPTOR, UPDATE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
+        authMethodToTypeParamIndexMap.put(DELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, DELETE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
+        authMethodToTypeParamIndexMap.put(UNDELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, UNDELETE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
+        authMethodToTypeParamIndexMap.put(MERGE_AUTH_METHOD_PATTERN_DESCRIPTOR, MERGE_AUTH_METHOD_TYPE_PARAM_INDEX_DESCRIPTOR);
+        AUTH_METHOD_TO_TYPE_PARAM_INDEX_MAP = Collections.unmodifiableMap(authMethodToTypeParamIndexMap);
+
+        Map<PropertyDescriptor<String>, String> authMethodToDmlOperationMap = new HashMap<>();
+        authMethodToDmlOperationMap.put(CREATE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_CREATEABLE);
+        authMethodToDmlOperationMap.put(READ_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_ACCESSIBLE);
+        authMethodToDmlOperationMap.put(UPDATE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_UPDATEABLE);
+        authMethodToDmlOperationMap.put(DELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_DELETABLE);
+        authMethodToDmlOperationMap.put(UNDELETE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_UNDELETABLE);
+        authMethodToDmlOperationMap.put(MERGE_AUTH_METHOD_PATTERN_DESCRIPTOR, IS_MERGEABLE);
+        AUTH_METHOD_TO_DML_OPERATION_MAP = Collections.unmodifiableMap(authMethodToDmlOperationMap);
+    }
 
     // Compiled pattern cache for configured method name patterns
     private final Map<String, Pattern> compiledAuthMethodPatternCache = new HashMap<>();
