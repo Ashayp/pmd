@@ -116,6 +116,9 @@ final class TraversalUtils {
             @Override
             public @NonNull
             Node next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 return parent.getChild(i++);
             }
         };
