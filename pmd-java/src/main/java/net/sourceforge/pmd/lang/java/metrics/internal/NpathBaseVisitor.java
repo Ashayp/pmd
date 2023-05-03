@@ -97,7 +97,7 @@ public class NpathBaseVisitor extends JavaVisitorBase<Void, BigInteger> {
 
         int boolComp = CycloVisitor.booleanExpressionComplexity(node.getCondition());
         BigInteger nPathBody = node.getBody().acceptVisitor(this, data);
-        return nPathBody.add(BigInteger.valueOf(boolComp + 1));
+        return nPathBody.add(BigInteger.valueOf((long)boolComp + 1));
     }
 
 
